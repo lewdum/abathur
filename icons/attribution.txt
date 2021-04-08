@@ -1,4 +1,9 @@
 tab - Freepik
+alien - Smashicons
 
 check2 - bootstrap
 pin-angle - bootstrap
+arrow-clockwise - bootstrap
+download - bootstrap
+
+arrow-clockwise-gray - edited from bootstrap

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abathur</title>
+    <title>Abathur v1.3</title>
 
     <script src="config.js" defer></script>
 
@@ -16,7 +16,7 @@
         <h3>Armazenamento</h3>
 
         <label for="session-list" class="control-label">Sessões salvas:</label>
-        <select id="session-list" class="w-100"></select>
+        <select id="session-list" class="w-100" disabled></select>
 
         <!-- <textarea id="session-text" class="w-100" rows="20" wrap="off" readonly></textarea> -->
 
@@ -32,14 +32,15 @@
             </table>
         </div>
 
-        <input type="checkbox" id="save-icons">
+        <input type="checkbox" id="save-icons" disabled>
         <label for="save-icons">
             Incluir ícones (aumenta o tamanho do arquivo consideravelmente)
         </label>
 
-        <button id="download-session" class="w-100">Fazer Download da Sessão Selecionada</button>
-        <button id="delete-session" class="w-100">Esquecer Sessão Selecionada</button>
-        <button id="save-session" class="w-100">Salvar Sessão da Janela Atual</button>
+        <button id="download-session" class="w-100" disabled>Fazer Download da Sessão Selecionada</button>
+        <button id="retrieve-icons" class="w-100" disabled>Obter Ícones da Sessão Selecionada</button>
+        <button id="delete-session" class="w-100" disabled>Esquecer Sessão Selecionada</button>
+        <button id="save-session" class="w-100" disabled>Salvar Sessão da Janela Atual</button>
 
         <!-- <p>
             Uso total do armazenamento do navegador: <span id="memory-usage"></span>
@@ -50,23 +51,25 @@
         <h3>Controle</h3>
 
         <label for="keep-top" class="control-label">Preservar no máximo: (no começo)</label>
-        <input type="number" id="keep-top" class="w-100" min="0" max="1000" step="10" value="50">
+        <input type="number" id="keep-top" class="w-100" min="0" max="1000" step="10" value="50" disabled>
 
         <label for="keep-bottom" class="control-label">Preservar no máximo: (no fim)</label>
-        <input type="number" id="keep-bottom" class="w-100" min="0" max="1000" step="10" value="100">
+        <input type="number" id="keep-bottom" class="w-100" min="0" max="1000" step="10" value="100" disabled>
 
-        <input type="checkbox" id="keep-pinned" checked>
+        <input type="checkbox" id="keep-pinned" checked disabled>
         <label for="keep-pinned">
             Sempre preservar abas fixadas
         </label>
 
-        <button id="kill-tabs" class="w-100">Limpar Abas</button>
+        <button id="kill-tabs" class="w-100" disabled>Limpar Abas</button>
 
-        <p class="warning">
-            <span style="font-weight: bold;">Atenção:</span> <!-- TODO: meh -->
-            Fechar muitas abas pode demorar bastante tempo. Enquanto isso, não feche o navegador.
-        </p>
+        <!-- <p class="warning">
+            <span style="font-weight: bold;">Atenção:</span>
+            Fechar muitas abas pode demorar bastante tempo.
+        </p> -->
     </div>
+
+    <p id="status">Paracelso imediato maneiro. Abas na xoxota: 125/178. Integridade: 0%.</p>
 
     <img class="watermark" src="assets/watermark.png" width="200" height="auto">
 </body>

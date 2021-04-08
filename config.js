@@ -12,15 +12,34 @@ const elemSaveSession = document.querySelector('#save-session')
 
 const elemDownloadSession = document.querySelector('#download-session')
 const elemDeleteSession = document.querySelector('#delete-session')
+const elemRetrieveIcons = document.querySelector('#retrieve-icons')
 
 const elemKeepTop = document.querySelector('#keep-top')
 const elemKeepBottom = document.querySelector('#keep-bottom')
 const elemKeepPinned = document.querySelector('#keep-pinned')
 const elemKillTabs = document.querySelector('#kill-tabs')
 
-const elemUsage = document.querySelector('#memory-usage')
+const elemStatus = document.querySelector('#status')
+
+const controls = [
+    elemSessionList,
+    elemSaveIcons,
+    elemSaveSession,
+    elemDownloadSession,
+    elemDeleteSession,
+    elemRetrieveIcons,
+    elemKeepTop,
+    elemKeepBottom,
+    elemKeepPinned,
+    elemKillTabs,
+]
+
+
+// Tarefas simultâneas em retrieveIcons.
+const concurrentWorkers = 10
 
 let stateSessions = []
+
 
 function refreshPage() {
     document.location = document.location
@@ -164,6 +183,141 @@ async function updateTable() {
     elemSessionLabel.textContent = `Lista de abas (${session.tabs.length}):`
 }
 
+async function retrieveIcons() {
+    const session = getSelectedSession()
+
+    if (session === undefined) {
+        return
+    }
+
+    // if (!confirm(
+    //     'Isto usa um serviço do Google para obter os ícones. ' +
+    //     'O Google pode rastrear você. Deseja continuar?'
+    // )) {
+    //     return
+    // }
+    //
+    // https://www.google.com/s2/favicons?domain=???
+
+    if (!confirm(
+        'Os ícones obtidos desta forma podem ocupar mais espaço do que o normal. ' +
+        'Ademais, esta operação pode levar algum tempo, dependendo do tamanho da sessão. ' +
+        'Solicitações serão feitas para todos os servidores na lista. ' +
+        'Deseja continuar?'
+    )) {
+        return
+    }
+
+    setStatus('Preparando para obter ícones...')
+
+    disableControls()
+
+    let busy = []
+
+    let total = session.tabs.length
+    let successes = 0
+    let failures = 0
+
+    async function waitNextTask() {
+        const result = await busy[0]
+        let done = successes + failures
+        const row = elemSessionTable.children[done + 1]
+
+        if (result) {
+            successes++
+        } else {
+            failures++
+
+            const col = row.children[2]
+            col.removeChild(col.firstChild)
+        }
+
+        busy.splice(0, 1)
+        row.scrollIntoView()
+
+        done++
+        const percent = Math.floor(100 * done / total)
+        setStatus(`Executando operação... ${done}/${total} (${percent}%)`)
+    }
+
+    for (let i = 0; i < total; i++) {
+        const tab = session.tabs[i]
+        const url = tab.url
+
+        if (busy.length === concurrentWorkers) {
+            await waitNextTask()
+        }
+
+        const row = elemSessionTable.children[i + 1]
+        const col = row.children[2]
+
+        if (col.firstChild === undefined) {
+            col.appendChild(document.createElement('img'))
+        }
+
+        const icon = col.firstChild
+
+        busy.push(retrieveIcon(icon, url))
+    }
+
+    while (busy.length > 0) {
+        await waitNextTask()
+    }
+
+    setStatus(`Operação concluída. Ícones obtidos com sucesso: ${successes}/${total}.`)
+
+    enableControls()
+}
+
+async function retrieveIcon(icon, url) {
+    // TODO: Must check if loading failed previously...
+    // if (icon.src) {
+    //     return
+    // }
+
+    function setIconAndWait(url) {
+        const promise = new Promise(
+            (resolve, reject) => {
+                buffer.onload = resolve
+                buffer.onerror = reject
+            })
+
+        buffer.title = url
+        buffer.src = url
+
+        return promise
+    }
+
+    icon.title = 'Carregando...'
+    icon.src = 'icons/arrow-clockwise-gray.svg'
+
+    const buffer = document.createElement('img')
+    buffer.style.visibility = 'hidden'
+
+    const components = url.split('/', 3)
+    const baseURL = components.join('/')
+    const iconURL = `${baseURL}/favicon.ico`
+
+    try {
+        await setIconAndWait(iconURL)
+    } catch (err) {
+        try {
+            const response = await fetch(iconURL)
+            const data = await response.blob()
+            const dataURL = URL.createObjectURL(data) // TODO: destroy these eventually
+
+            await setIconAndWait(dataURL)
+        } catch (err) {
+            return false
+        }
+    }
+
+    icon.title = buffer.title
+    icon.src = buffer.src
+
+    return true
+}
+
 async function downloadText() {
     const session = getSelectedSession()
 
@@ -202,9 +356,17 @@ async function deleteSession() {
 }
 
 async function killTabs() {
-    if (!confirm('Esta operação é irreversível. Deseja continuar?')) {
+    if (!confirm(
+        'Esta operação é irreversível. ' +
+        'Fechar muitas abas pode demorar bastante tempo. ' +
+        'Deseja continuar?'
+    )) {
         return
     }
+
+    setStatus('Fechando abas... Por favor, mantenha esta página aberta.')
+
+    disableControls()
 
     const keepCountTop = Number(elemKeepTop.value)
     const keepCountBottom = Number(elemKeepBottom.value)
@@ -223,12 +385,27 @@ async function killTabs() {
 
     const ids = tabs.map(tab => tab.id)
 
-    console.log("CLOSING")
-    console.log(ids)
-
     await browser.tabs.remove(ids)
 
-    console.log("CLOSED")
+    setStatus(`Operação concluída. Abas fechadas com sucesso: ${ids.length}.`)
+
+    enableControls()
+}
+
+function enableControls() {
+    for (const control of controls) {
+        control.disabled = false
+    }
+}
+
+function disableControls() {
+    for (const control of controls) {
+        control.disabled = true
+    }
+}
+
+function setStatus(text) {
+    elemStatus.textContent = text
 }
 
 async function loaded() {
@@ -254,6 +431,11 @@ async function loaded() {
             await deleteSession()
         })
 
+    elemRetrieveIcons.addEventListener('click',
+        async () => {
+            await retrieveIcons()
+        })
+
     elemKillTabs.addEventListener('click',
         async () => {
             await killTabs()
@@ -269,13 +451,7 @@ async function loaded() {
         elemSessionList.appendChild(option)
     })
 
-    // TODO: Slow as FUCK, but getBytesInUse() is bugged.
-    // const used = JSON.stringify(stateSessions).length
-
-    // const capacity = 5 * 10 ** 6
-    // const percent = Math.floor(100 * used / capacity)
-
-    // elemUsage.textContent = `${used}/${capacity} bytes (${percent}%)`
+    enableControls()
 
     await updateTable()
 }
