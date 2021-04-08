@@ -4,7 +4,7 @@ Extensão minimalista para gestão de abas no navegador.
 
 ![Pajamathur](https://bnetcmsus-a.akamaihd.net/cms/content_folder_media/VKPXO93SMGWH1396295389771.gif)
 
-Versão atual: 1.3
+Versão atual: 1.2.1
 
 ## Introdução
 
@@ -35,6 +35,7 @@ A extensão não faz absolutamente nada até que o usuário solicite uma de suas
 - [ ] Mover URLs dos ícones para constantes globais.
 - [ ] Remover código antigo não utilizado.
 - [ ] Comentar todas as funções, variáveis e constantes.
+- [ ] Assinar extensão digitalmente.
 
 <br><br><br><br><br><br>
 

@@ -1,7 +1,7 @@
 {
     "manifest_version": 2,
     "name": "Abathur",
-    "version": "1.2",
+    "version": "1.2.1",
     "description": "Que ADHD da porra!",
     "icons": {
         "32": "icons/alien32.png",
