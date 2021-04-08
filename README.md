@@ -36,7 +36,33 @@ A extensão não faz absolutamente nada até que o usuário solicite uma de suas
 - [ ] Remover código antigo não utilizado.
 - [ ] Comentar todas as funções, variáveis e constantes.
 - [ ] Assinar extensão digitalmente.
+- [ ] Atalho(s) de teclado.
 
-<br><br><br><br><br><br>
 
-"Fecha as aba, fio." – Dr. Ricardo Porreta
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br>
+
+![Porreta](assets/watermark.png)
+
+> "Feeecha as aba, fio."
+> – Dr. Ricardo Porreta, PhD

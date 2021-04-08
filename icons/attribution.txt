@@ -1,4 +1,3 @@
-tab - Freepik
 alien - Smashicons
 
 check2 - bootstrap
