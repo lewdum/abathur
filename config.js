@@ -4,7 +4,7 @@
 const storage = browser.storage.local
 
 const elemSessionList = document.querySelector('#session-list')
-// const elemSessionText = document.querySelector('#session-text')
+const elemSessionLabel = document.querySelector('#session-label')
 const elemSessionTable = document.querySelector('#session-table')
 
 const elemSaveIcons = document.querySelector('#save-icons')
@@ -160,6 +160,8 @@ async function updateTable() {
     }
 
     console.log('Refresh completed.')
+
+    elemSessionLabel.textContent = `Lista de abas (${session.tabs.length}):`
 }
 
 async function downloadText() {
@@ -191,12 +193,19 @@ async function deleteSession() {
     if (index === undefined) {
         return
     }
+    if (!confirm('Esta operação é irreversível. Deseja continuar?')) {
+        return
+    }
     stateSessions.splice(index, 1)
     await saveState()
     refreshPage()
 }
 
 async function killTabs() {
+    if (!confirm('Esta operação é irreversível. Deseja continuar?')) {
+        return
+    }
+
     const keepCountTop = Number(elemKeepTop.value)
     const keepCountBottom = Number(elemKeepBottom.value)
     const keepPinned = elemKeepPinned.checked

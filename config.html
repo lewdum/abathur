@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurações - Abathur</title>
+    <title>Abathur</title>
 
     <script src="config.js" defer></script>
 
@@ -17,11 +17,11 @@
 
         <label for="session-list" class="control-label">Sessões salvas:</label>
         <select id="session-list" class="w-100"></select>
-        <label for="session-text" class="control-label">Lista de abas:</label>
 
         <!-- <textarea id="session-text" class="w-100" rows="20" wrap="off" readonly></textarea> -->
 
-        <div class="session-table-frame">
+        <label id="session-label" for="session-table-frame" class="control-label">Lista de abas:</label>
+        <div id="session-table-frame">
             <table id="session-table">
                 <tr>
                     <!-- <th>ID</th>
@@ -61,6 +61,11 @@
         </label>
 
         <button id="kill-tabs" class="w-100">Limpar Abas</button>
+
+        <p class="warning">
+            <span style="font-weight: bold;">Atenção:</span> <!-- TODO: meh -->
+            Fechar muitas abas pode demorar bastante tempo. Enquanto isso, não feche o navegador.
+        </p>
     </div>
 
     <img class="watermark" src="assets/watermark.png" width="200" height="auto">

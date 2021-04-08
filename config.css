@@ -111,7 +111,7 @@ input[type=number].w-100 {
     text-align: center;
 }
 
-.session-table-frame {
+#session-table-frame {
     border: 1px solid gray;
 
     margin-bottom: 0.2rem;
@@ -119,6 +119,13 @@ input[type=number].w-100 {
     overflow-x: auto;
     overflow-y: scroll;
     height: 30vh;
+}
+
+.warning {
+    margin-bottom: 0.2rem;
+    /* font-style: italic; */
+    font-size: 14px;
+    color: red;
 }
 
 .icon {
