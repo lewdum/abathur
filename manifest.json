@@ -1,0 +1,35 @@
+{
+    "manifest_version": 2,
+    "name": "Abathur",
+    "version": "1.1",
+    "description": "Que ADHD da porra!",
+    "icons": {
+        "64": "icons/tab.png"
+    },
+    "browser_action": {
+        "default_icon": {
+            "64": "icons/tab.png"
+        }
+    },
+    "background": {
+        "scripts": [
+            "script.js"
+        ]
+    },
+    "options_ui": {
+        "browser_style": false,
+        "open_in_tab": true,
+        "page": "config.html"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "abathur@lord.com"
+        }
+    },
+    "permissions": [
+        "tabs",
+        "storage",
+        "unlimitedStorage",
+        "downloads"
+    ]
+}

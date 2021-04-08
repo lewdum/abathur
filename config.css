@@ -1,0 +1,136 @@
+html, body {
+    margin: 0;
+}
+
+body {
+    padding-top: 2rem;
+
+    font-family: sans-serif;
+    font-size: 16px;
+}
+
+textarea {
+    font-family: monospace;
+    font-size: 10px;
+
+    resize: none;
+}
+
+button, input, select, textarea {
+    margin-bottom: 0.5rem;
+}
+
+button {
+    height: 2rem;
+}
+
+p {
+    margin-top: 0;
+}
+
+.w-100 {
+    width: 100%;
+}
+
+input[type=number].w-100 {
+    width: calc(100% - 16px);
+}
+
+.control-label {
+    display: block;
+
+    margin-bottom: 0.2rem;
+}
+
+/* TODO */
+.controls > div > input {
+    margin-bottom: 0.5rem;
+}
+
+.group {
+    margin-bottom: 1rem;
+    margin-left: 4rem;
+    margin-right: 4rem;
+
+    padding-top: 1rem;
+    padding-bottom: 0.5rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+
+    border: 2px dashed gray;
+    border-radius: 1rem;
+}
+
+@media only screen and (min-width: 1000px) {
+    .group {
+        margin-left: 10rem;
+        margin-right: 10rem;
+    }
+}
+
+.group > h3 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+
+    text-align: center;
+}
+
+#session-table {
+    width: 100%;
+
+    margin-top: 0.3rem;
+    margin-bottom: 0.3rem;
+
+    border-collapse: collapse;
+}
+#session-table td {
+    border: 1px dashed rgba(0,0,0,0.1);
+    padding-left: 0.3rem;
+    padding-right: 0.3rem;
+}
+#session-table tr:nth-child(2) td {
+    border-top: 0;
+}
+#session-table tr td:first-child {
+    border-left: 0;
+}
+#session-table tr:last-child td {
+    border-bottom: 0;
+}
+#session-table tr td:last-child {
+    border-right: 0;
+}
+
+#session-table td:nth-child(1) {
+    text-align: right;
+}
+#session-table td:nth-child(2) {
+    text-align: center;
+}
+#session-table td:nth-child(3) {
+    text-align: center;
+}
+
+.session-table-frame {
+    border: 1px solid gray;
+
+    margin-bottom: 0.2rem;
+
+    overflow-x: auto;
+    overflow-y: scroll;
+    height: 30vh;
+}
+
+.icon {
+    width: 16px;
+    height: auto;
+}
+
+.watermark {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    opacity: 15%;
+
+    z-index: -1000;
+}

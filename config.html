@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações - Abathur</title>
+
+    <script src="config.js" defer></script>
+
+    <link rel="stylesheet" href="config.css">
+</head>
+
+<body>
+    <div class="group">
+        <h3>Armazenamento</h3>
+
+        <label for="session-list" class="control-label">Sessões salvas:</label>
+        <select id="session-list" class="w-100"></select>
+        <label for="session-text" class="control-label">Lista de abas:</label>
+
+        <!-- <textarea id="session-text" class="w-100" rows="20" wrap="off" readonly></textarea> -->
+
+        <div class="session-table-frame">
+            <table id="session-table">
+                <tr>
+                    <!-- <th>ID</th>
+                    <th>P</th>
+                    <th>I</th>
+                    <th>Título</th> -->
+                </tr>
+            </table>
+        </div>
+
+        <input type="checkbox" id="save-icons">
+        <label for="save-icons">
+            Incluir ícones (aumenta o tamanho do arquivo consideravelmente)
+        </label>
+
+        <button id="download-session" class="w-100">Fazer Download da Sessão Selecionada</button>
+        <button id="delete-session" class="w-100">Esquecer Sessão Selecionada</button>
+        <button id="save-session" class="w-100">Salvar Sessão da Janela Atual</button>
+
+        <!-- <p>
+            Uso total do armazenamento do navegador: <span id="memory-usage"></span>
+        </p> -->
+    </div>
+
+    <div class="group">
+        <h3>Controle</h3>
+
+        <label for="keep-top" class="control-label">Preservar no máximo: (no começo)</label>
+        <input type="number" id="keep-top" class="w-100" min="0" max="1000" step="10" value="50">
+
+        <label for="keep-bottom" class="control-label">Preservar no máximo: (no fim)</label>
+        <input type="number" id="keep-bottom" class="w-100" min="0" max="1000" step="10" value="100">
+
+        <input type="checkbox" id="keep-pinned" checked>
+        <label for="keep-pinned">
+            Sempre preservar abas fixadas
+        </label>
+
+        <button id="kill-tabs" class="w-100">Limpar Abas</button>
+    </div>
+
+    <img class="watermark" src="assets/watermark.png" width="200" height="auto">
+</body>
+
+</html>
