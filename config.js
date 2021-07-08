@@ -10,6 +10,7 @@ const elemSessionTable = document.querySelector('#session-table')
 const elemSaveIcons = document.querySelector('#save-icons')
 const elemSaveSession = document.querySelector('#save-session')
 
+const elemOpenWindowSession = document.querySelector('#open-session')
 const elemDownloadSession = document.querySelector('#download-session')
 const elemDeleteSession = document.querySelector('#delete-session')
 const elemRetrieveIcons = document.querySelector('#retrieve-icons')
@@ -26,6 +27,7 @@ const controls = [
     elemSaveIcons,
     elemSaveSession,
     elemDownloadSession,
+    elemOpenWindowSession,
     elemDeleteSession,
     elemRetrieveIcons,
     elemKeepTop,
@@ -342,6 +344,25 @@ async function downloadText() {
     // URL.revokeObjectURL(url)
 }
 
+async function openNewWindow() {
+    const session = getSelectedSession()
+
+    if (session === undefined) {
+        return
+    }
+
+    // FIXME: Must prevent these from even being saved in the first place.
+    const urls = session.tabs
+        .filter(tab => !tab.url.startsWith('moz-extension:'))
+        .filter(tab => !tab.url.startsWith('about:'))
+        .map(tab => tab.url)
+
+    // FIXME: Can we create the tabs in a suspended state?
+    await browser.windows.create({
+        url: urls,
+    })
+}
+
 async function deleteSession() {
     const index = getSelectedIndex()
     if (index === undefined) {
@@ -424,6 +445,11 @@ async function loaded() {
     elemDownloadSession.addEventListener('click',
         async () => {
             await downloadText()
+        })
+
+    elemOpenWindowSession.addEventListener('click',
+        async () => {
+            await openNewWindow()
         })
 
     elemDeleteSession.addEventListener('click',

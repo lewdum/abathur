@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Abathur v1.2.1</title>
+    <title>Abathur v1.3.0</title>
 
     <script src="config.js" defer></script>
 
@@ -12,64 +12,73 @@
 </head>
 
 <body>
-    <div class="group">
-        <h3>Armazenamento</h3>
+    <div>
+        <div class="group">
+            <h3>Controle</h3>
 
-        <label for="session-list" class="control-label">Sessões salvas:</label>
-        <select id="session-list" class="w-100" disabled></select>
+            <label>
+                <input type="checkbox" id="save-icons" disabled>
+                Incluir ícones (aumenta o tamanho do arquivo)
+            </label>
 
-        <!-- <textarea id="session-text" class="w-100" rows="20" wrap="off" readonly></textarea> -->
+            <button id="download-session" class="w-100" disabled>Fazer Download da Sessão Selecionada</button>
+            <button id="retrieve-icons" class="w-100" disabled>Obter Ícones da Sessão Selecionada</button>
+            <button id="delete-session" class="w-100" disabled>Esquecer Sessão Selecionada</button>
+            <button id="save-session" class="w-100" disabled>Salvar Sessão da Janela Atual</button>
+            <button id="open-session" class="w-100" disabled>Abrir Sessão Selecionada em Uma Nova Janela</button>
 
-        <label id="session-label" for="session-table-frame" class="control-label">Lista de abas:</label>
-        <div id="session-table-frame">
-            <table id="session-table">
-                <tr>
-                    <!-- <th>ID</th>
-                    <th>P</th>
-                    <th>I</th>
-                    <th>Título</th> -->
-                </tr>
-            </table>
+            <!-- <p>
+                Uso total do armazenamento do navegador: <span id="memory-usage"></span>
+            </p> -->
         </div>
 
-        <input type="checkbox" id="save-icons" disabled>
-        <label for="save-icons">
-            Incluir ícones (aumenta o tamanho do arquivo consideravelmente)
-        </label>
+        <div class="group">
+            <h3>Limpeza</h3>
 
-        <button id="download-session" class="w-100" disabled>Fazer Download da Sessão Selecionada</button>
-        <button id="retrieve-icons" class="w-100" disabled>Obter Ícones da Sessão Selecionada</button>
-        <button id="delete-session" class="w-100" disabled>Esquecer Sessão Selecionada</button>
-        <button id="save-session" class="w-100" disabled>Salvar Sessão da Janela Atual</button>
+            <label for="keep-top" class="control-label">Preservar no máximo: (no começo)</label>
+            <input type="number" id="keep-top" class="w-100" min="0" max="1000" step="10" value="50" disabled>
 
-        <!-- <p>
-            Uso total do armazenamento do navegador: <span id="memory-usage"></span>
-        </p> -->
+            <label for="keep-bottom" class="control-label">Preservar no máximo: (no fim)</label>
+            <input type="number" id="keep-bottom" class="w-100" min="0" max="1000" step="10" value="100" disabled>
+
+            <label>
+                <input type="checkbox" id="keep-pinned" checked disabled>
+                Sempre preservar abas fixadas
+            </label>
+
+            <button id="kill-tabs" class="w-100" disabled>Limpar Abas</button>
+
+            <!-- <p class="warning">
+                <span style="font-weight: bold;">Atenção:</span>
+                Fechar muitas abas pode demorar bastante tempo.
+            </p> -->
+        </div>
     </div>
 
-    <div class="group">
-        <h3>Controle</h3>
+    <div>
+        <div class="group">
+            <h3>Armazenamento</h3>
 
-        <label for="keep-top" class="control-label">Preservar no máximo: (no começo)</label>
-        <input type="number" id="keep-top" class="w-100" min="0" max="1000" step="10" value="50" disabled>
+            <label for="session-list" class="control-label">Sessões salvas:</label>
+            <select id="session-list" class="w-100" disabled></select>
 
-        <label for="keep-bottom" class="control-label">Preservar no máximo: (no fim)</label>
-        <input type="number" id="keep-bottom" class="w-100" min="0" max="1000" step="10" value="100" disabled>
+            <!-- <textarea id="session-text" class="w-100" rows="20" wrap="off" readonly></textarea> -->
 
-        <input type="checkbox" id="keep-pinned" checked disabled>
-        <label for="keep-pinned">
-            Sempre preservar abas fixadas
-        </label>
+            <label id="session-label" for="session-table-frame" class="control-label">Lista de abas:</label>
+            <div id="session-table-frame">
+                <table id="session-table">
+                    <tr>
+                        <!-- <th>ID</th>
+                        <th>P</th>
+                        <th>I</th>
+                        <th>Título</th> -->
+                    </tr>
+                </table>
+            </div>
+        </div>
 
-        <button id="kill-tabs" class="w-100" disabled>Limpar Abas</button>
-
-        <!-- <p class="warning">
-            <span style="font-weight: bold;">Atenção:</span>
-            Fechar muitas abas pode demorar bastante tempo.
-        </p> -->
+        <p id="status"></p>
     </div>
-
-    <p id="status"></p>
 
     <img class="watermark" src="assets/watermark.png" width="200" height="auto">
 </body>
